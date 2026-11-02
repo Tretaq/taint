@@ -31,5 +31,8 @@ export const PixelCanvas: React.FC<PixelCanvas> = ({grid,cellSize,onPaint}) => {
                 }
             }
         }
-    })
+    },[grid,cellSize,width,height,rows,cols]);
+
+    return <canvas ref={canvasRef} width={width} height={height}/>;
+
 }
