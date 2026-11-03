@@ -10,7 +10,7 @@ function App() {
   const [grid, setGrid] = useState(() => createGrid(16,16));
   return (
     <>
-      <PixelCanvas grid={grid} cellSize={20} onPaint={() => {}}></PixelCanvas>
+      <PixelCanvas grid={grid} cellSize={20}  onPaint={setGrid(prev => setPixel(prev,x,y,"#000000"))}></PixelCanvas>
     </>
   )
 }
