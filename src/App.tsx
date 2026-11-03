@@ -9,7 +9,7 @@ function App() {
   // console.log(a[2][1], b[2][1], a === b)
   const [grid, setGrid] = useState(() => createGrid(16,16));
   const handlePaint = (x: number, y: number) => {
-      setGrid(prev => setPixel(prev,x,y,"#000000"))
+      setGrid(prev => setPixel(prev,x,y,"#FFC0CB"))
   }
   return (
     <>
