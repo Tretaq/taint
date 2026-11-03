@@ -8,9 +8,12 @@ function App() {
     // const b = setPixel(a,1,2, "red");
   // console.log(a[2][1], b[2][1], a === b)
   const [grid, setGrid] = useState(() => createGrid(16,16));
+  const handlePaint = (x: number, y: number) => {
+      setGrid(prev => setPixel(prev,x,y,"#000000"))
+  }
   return (
     <>
-      <PixelCanvas grid={grid} cellSize={20}  onPaint={setGrid(prev => setPixel(prev,x,y,"#000000"))}></PixelCanvas>
+      <PixelCanvas grid={grid} cellSize={20}  onPaint={handlePaint}></PixelCanvas>
     </>
   )
 }

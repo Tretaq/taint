@@ -21,7 +21,6 @@ export const PixelCanvas: React.FC<PixelCanvasProps> = ({grid,cellSize,onPaint})
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         for(let y = 0; y < rows; y++) {
             for(let x = 0; x < cols; x++) {
-                const pixelColor = grid[y][x];
                 ctx.fillStyle = grid[y][x] ?? '#E5E7EB';
                 ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
 
@@ -47,6 +46,6 @@ export const PixelCanvas: React.FC<PixelCanvasProps> = ({grid,cellSize,onPaint})
     }
 
 
-    return <canvas ref={canvasRef} width={width} height={height}/>;
+    return <canvas ref={canvasRef} width={width} height={height} onPointerDown={handlePointerDown} />;
 
 }
