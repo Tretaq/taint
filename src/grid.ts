@@ -19,6 +19,9 @@ export function setPixel(grid: Grid, x: number, y: number, color: Pixel) {
     if(!inBounds(grid, x, y)){
         return grid;
     }
+    if(getPixel(grid,x,y) === color){
+        return grid;
+    }
     const newGrid = grid.map(row => [...row]);
     newGrid[y][x] = color;
     return newGrid;

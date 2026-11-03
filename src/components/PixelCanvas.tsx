@@ -61,6 +61,6 @@ export const PixelCanvas: React.FC<PixelCanvasProps> = ({grid,cellSize,onPaint})
     }
 
 
-    return <canvas ref={canvasRef} width={width} height={height} onPointerDown={handlePointerDown} onPointerMove={handlePointerMove} onPointerUp={handlePointerUp} />;
+    return <canvas ref={canvasRef} width={width} height={height} onPointerCancel={handlePointerUp} onPointerDown={handlePointerDown} onPointerMove={handlePointerMove} onPointerUp={handlePointerUp} />;
 
 }
