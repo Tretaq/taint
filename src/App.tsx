@@ -2,18 +2,21 @@ import './App.css'
 import {createGrid, setPixel} from "./grid.ts";
 import {useState} from "react";
 import {PixelCanvas} from "./components/PixelCanvas.tsx";
+import {useEditor} from "./state/useEditor.ts";
 
 function App() {
-    // const a = createGrid(4,4)
-    // const b = setPixel(a,1,2, "red");
-  // console.log(a[2][1], b[2][1], a === b)
-  const [grid, setGrid] = useState(() => createGrid(16,16));
+
+    const {state,dispatch} = useEditor();
+
   const handlePaint = (x: number, y: number) => {
-      setGrid(prev => setPixel(prev,x,y,"#FFC0CB"))
+      dispatch({type:"paint", x,y})
   }
   return (
     <>
-      <PixelCanvas grid={grid} cellSize={20}  onPaint={handlePaint}></PixelCanvas>
+      <PixelCanvas grid={state.grid} cellSize={20}  onPaint={handlePaint}></PixelCanvas>
+        <button onClick={() => {
+            dispatch({type:"clear"})
+        }}>Clear</button>
     </>
   )
 }

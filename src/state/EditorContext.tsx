@@ -9,12 +9,13 @@ export type EditorContextType = {
 } | null;
 
 export const EditorContext = createContext<EditorContextType>(null);
-
+// how it looks we define it at the start
 interface EditorProviderProps {
     children: ReactNode;
 }
 
 export const EditorProvider = ({children}: EditorProviderProps) => {
+    //hold the data and all
     const [state, dispatch] = useReducer(editorReducer, undefined, ():EditorState => ({
         grid: createGrid(16,16),
         color: "#000000"
