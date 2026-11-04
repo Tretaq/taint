@@ -1,5 +1,5 @@
 import type {EditorAction, EditorState} from "../types.ts";
-import {getPixel, setPixel} from "../grid.ts";
+import {createGrid, getPixel, setPixel} from "../grid.ts";
 
 
 export function editorReducer(state: EditorState, action: EditorAction):EditorState {
@@ -12,10 +12,11 @@ export function editorReducer(state: EditorState, action: EditorAction):EditorSt
             return {...state,grid: newgrid};
         }
         case "clear": {
-
+            const clearGrid = createGrid(state.grid[0].length,state.grid.length)
+            return {...state,grid:clearGrid};
         }
         case "setColor": {
-
+            return {...state,color: action.color};
         }
         default: {
             const _exhaustive: never = action;
