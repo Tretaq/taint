@@ -12,7 +12,7 @@ export const Palette: React.FC<PaletteProps> = ({colors, recentColors, selected,
             {recentColors.length > 0 && (
              <div className="recent-palette-section">
                 <h4>Recent Colors</h4>
-                 <div className="pallette-grid">
+                 <div className="palette-grid">
                      {recentColors.map((color) => (
                          <button
                          aria-label={`Recent Color (${color})`}
@@ -41,7 +41,7 @@ export const Palette: React.FC<PaletteProps> = ({colors, recentColors, selected,
                     onClick={() => onSelected(color)}
                     />
                 ))}
-                {}
+
             </div>
             <div className="custom-color-picker">
                 <label htmlFor="custom-color">Pick a color:</label>
