@@ -1,6 +1,5 @@
 import type {Grid} from "../types.ts";
 import {useEffect, useRef} from "react";
-import {inBounds} from "../grid.ts";
 
 interface PixelCanvasProps {
     grid: Grid

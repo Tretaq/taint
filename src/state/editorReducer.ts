@@ -16,6 +16,7 @@ export function editorReducer(state: EditorState, action: EditorAction):EditorSt
             return {...state,grid:clearGrid};
         }
         case "setColor": {
+            if(state.color === action.color) return state;
             return {...state,color: action.color};
         }
         default: {

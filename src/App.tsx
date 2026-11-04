@@ -1,8 +1,8 @@
 import './App.css'
-import {createGrid, setPixel} from "./grid.ts";
-import {useState} from "react";
 import {PixelCanvas} from "./components/PixelCanvas.tsx";
 import {useEditor} from "./state/useEditor.ts";
+import {Palette} from "./components/Palette.tsx";
+import {PALETTE} from "./palette.ts";
 
 function App() {
 
@@ -17,6 +17,7 @@ function App() {
         <button onClick={() => {
             dispatch({type:"clear"})
         }}>Clear</button>
+        <Palette selected={state.color} onSelected={(color) => dispatch({type: "setColor", color})} colors={PALETTE}></Palette>
     </>
   )
 }

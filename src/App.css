@@ -1,0 +1,25 @@
+.editor {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
+.sidebar{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.palette-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 24px);
+    gap: 4px;
+}
+.palette-color-btn {
+    width: 24px;
+    height: 24px;
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+.palette-color-btn[aria-pressed='true'] {
+    border-color: white;
+    outline: 2px solid black;
+}
