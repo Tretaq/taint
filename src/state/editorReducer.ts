@@ -17,7 +17,9 @@ export function editorReducer(state: EditorState, action: EditorAction):EditorSt
         }
         case "setColor": {
             if(state.color === action.color) return state;
-            return {...state,color: action.color};
+            const filteredColors = state.recentColors.filter(c => c !== action.color);
+            const updatedRecentColors = [action.color, ...filteredColors].slice(0, 8);
+            return {...state,color: action.color,recentColors: updatedRecentColors};
         }
         default: {
             const _exhaustive: never = action;

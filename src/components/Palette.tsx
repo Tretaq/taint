@@ -1,14 +1,34 @@
 import React from 'react';
 interface PaletteProps {
     colors: string[];
+    recentColors: string[];
     selected: string;
     onSelected: (color: string) => void;
 }
-export const Palette: React.FC<PaletteProps> = ({colors, selected, onSelected}) => {
+export const Palette: React.FC<PaletteProps> = ({colors, recentColors, selected, onSelected}) => {
     return (
         <div className="palette-container" >
-            <h3>Color Palette</h3>
 
+            {recentColors.length > 0 && (
+             <div className="recent-palette-section">
+                <h4>Recent Colors</h4>
+                 <div className="pallette-grid">
+                     {recentColors.map((color) => (
+                         <button
+                         aria-label={`Recent Color (${color})`}
+                         title={color}
+                         key={`recent-${color}`}
+                         className="palette-color-btn"
+                         style={{backgroundColor: color}}
+                         aria-pressed={selected === color}
+                         onClick={() => onSelected(color)}
+                         />
+                     ))}
+
+                 </div>
+             </div>
+            )}
+            <h3>Color Palette</h3>
             <div className="palette-grid">
                 {colors.map((color) => (
                     <button
@@ -21,12 +41,12 @@ export const Palette: React.FC<PaletteProps> = ({colors, selected, onSelected}) 
                     onClick={() => onSelected(color)}
                     />
                 ))}
+                {}
             </div>
             <div className="custom-color-picker">
                 <label htmlFor="custom-color">Pick a color:</label>
                 <input id="custom-color" type="color" value={selected} onChange={(e) => onSelected(e.target.value)} />
             </div>
-
         </div>
     )
 }

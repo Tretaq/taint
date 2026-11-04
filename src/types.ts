@@ -4,6 +4,7 @@ export type Grid = Pixel[][]
 export interface EditorState {
     grid: Grid;
     color: string;
+    recentColors: string[];
 }
 export interface PaintAction {
     type: "paint"

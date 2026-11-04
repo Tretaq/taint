@@ -17,7 +17,8 @@ function App() {
         <button onClick={() => {
             dispatch({type:"clear"})
         }}>Clear</button>
-        <Palette selected={state.color} onSelected={(color) => dispatch({type: "setColor", color})} colors={PALETTE}></Palette>
+        <Palette recentColors={state.recentColors} selected={state.color} onSelected={(color) => dispatch({type: "setColor", color})} colors={PALETTE}></Palette>
+
     </>
   )
 }

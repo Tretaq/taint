@@ -2,6 +2,7 @@ import {createContext, type Dispatch, type ReactNode, useReducer} from "react";
 import type {EditorAction, EditorState} from "../types.ts";
 import {editorReducer} from "./editorReducer.ts";
 import {createGrid} from "../grid.ts";
+import {PALETTE} from "../palette.ts";
 
 export type EditorContextType = {
     state: EditorState;
@@ -18,7 +19,8 @@ export const EditorProvider = ({children}: EditorProviderProps) => {
     //hold the data and all
     const [state, dispatch] = useReducer(editorReducer, undefined, ():EditorState => ({
         grid: createGrid(16,16),
-        color: "#000000"
+        color: PALETTE[0],
+        recentColors: PALETTE.slice(0 ,4)
     }));
     return (
         <EditorContext.Provider value={{state,dispatch}}>
