@@ -22,13 +22,15 @@ export function editorReducer(state: EditorState, action: EditorAction):EditorSt
                     const newgrid = setPixel(state.grid,action.x,action.y,null);
                     return {...state,grid: newgrid}
                 }
-                case "fill":
+                case "fill": {
+                    
+                }
                 case "eyedropper": {
                     const cellColor =getPixel(state.grid,action.x,action.y);
                     if( cellColor === null){
                         return state;
                     }
-                    return {...state,color: cellColor}
+                    return {...state,color: cellColor,tool: "pencil"}
                 }
                 default: {
                     const _exhaustive: never = state.tool;
