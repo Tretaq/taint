@@ -1,5 +1,5 @@
 import type {EditorAction, EditorState} from "../types.ts";
-import {createGrid, getPixel, setPixel} from "../grid.ts";
+import {createGrid, floodFill, getPixel, setPixel} from "../grid.ts";
 
 
 export function editorReducer(state: EditorState, action: EditorAction):EditorState {
@@ -23,9 +23,16 @@ export function editorReducer(state: EditorState, action: EditorAction):EditorSt
                     return {...state,grid: newgrid}
                 }
                 case "fill": {
+                    if(!action.isStart){
+                        return state;
+                    }
+                    return {...state, grid: floodFill(state.grid,action.x,action.y,state.color)}
                     
                 }
                 case "eyedropper": {
+                    if(!action.isStart){
+                        return state;
+                    }
                     const cellColor =getPixel(state.grid,action.x,action.y);
                     if( cellColor === null){
                         return state;
