@@ -3,6 +3,7 @@ import {PixelCanvas} from "./components/PixelCanvas.tsx";
 import {useEditor} from "./state/useEditor.ts";
 import {Palette} from "./components/Palette.tsx";
 import {PALETTE} from "./palette.ts";
+import {Toolbar} from "./components/Toolbar.tsx";
 
 function App() {
 
@@ -18,7 +19,7 @@ function App() {
             dispatch({type:"clear"})
         }}>Clear</button>
         <Palette recentColors={state.recentColors} selected={state.color} onSelected={(color) => dispatch({type: "setColor", color})} colors={PALETTE}></Palette>
-
+        <Toolbar activeTool={state.tool} onSelect={(tool) => dispatch({type: 'setTool', tool})}/>
     </>
   )
 }

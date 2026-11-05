@@ -29,6 +29,7 @@ export function setPixel(grid: Grid, x: number, y: number, color: Pixel) {
     }
     return newGrid;
 }
+
 export function floodFill(grid: Grid, x: number, y: number, newcolor: Pixel):Grid {
     const height = grid.length;
     const width = height > 0 ? grid[0].length : 0;
