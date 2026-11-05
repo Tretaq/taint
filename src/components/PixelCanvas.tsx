@@ -4,10 +4,10 @@ import {useEffect, useRef} from "react";
 interface PixelCanvasProps {
     grid: Grid
     cellSize: number
-    onPaint: (x: number, y: number) => void
+    onCellAction: (x: number, y: number, isStart:boolean) => void
 
 }
-export const PixelCanvas: React.FC<PixelCanvasProps> = ({grid,cellSize,onPaint}) => {
+export const PixelCanvas: React.FC<PixelCanvasProps> = ({grid,cellSize,onCellAction}) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const rows = grid.length;
     const cols = rows > 0 ? grid[0].length : 0;
@@ -46,13 +46,13 @@ export const PixelCanvas: React.FC<PixelCanvasProps> = ({grid,cellSize,onPaint})
         isDrawing.current = true;
         const cell = eventToCell(e);
         if(!cell) return;
-        onPaint(cell.x, cell.y);
+        onCellAction(cell.x, cell.y,true);
     }
     const handlePointerMove = (e: React.PointerEvent<HTMLCanvasElement>) => {
         if(!isDrawing.current) return;
 
         const cell = eventToCell(e);
-        if(cell) onPaint(cell.x, cell.y);
+        if(cell) onCellAction(cell.x, cell.y,true);
     }
     const handlePointerUp = (e: React.PointerEvent<HTMLCanvasElement>) => {
         isDrawing.current = false;

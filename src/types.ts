@@ -7,10 +7,11 @@ export interface EditorState {
     recentColors: string[];
     tool: Tool;
 }
-export interface PaintAction {
-    type: "paint"
-    x:number;
-    y:number;
+export interface applyToolAction {
+    type: "applyTool",
+    x:number,
+    y:number,
+    isStart: boolean
 }
 export interface ClearAction {
     type: "clear"
@@ -22,9 +23,9 @@ export interface SetColorAction{
 }
 export interface SetToolAction{
     type: "setTool"
-    SelectedTool: Tool;
+    tool: Tool;
 }
 
-export type EditorAction = PaintAction | ClearAction | SetColorAction | SetToolAction;
+export type EditorAction = applyToolAction | ClearAction | SetColorAction | SetToolAction;
 
 export type Tool = "pencil" | "eraser" | "fill" | "eyedropper"

@@ -8,12 +8,12 @@ function App() {
 
     const {state,dispatch} = useEditor();
 
-  const handlePaint = (x: number, y: number) => {
-      dispatch({type:"paint", x,y})
+  const handleCellAction = (x: number, y: number, isStart: boolean) => {
+      dispatch({type:"applyTool", x,y, isStart})
   }
   return (
     <>
-      <PixelCanvas grid={state.grid} cellSize={20}  onPaint={handlePaint}></PixelCanvas>
+      <PixelCanvas grid={state.grid} cellSize={20}  onCellAction={handleCellAction}></PixelCanvas>
         <button onClick={() => {
             dispatch({type:"clear"})
         }}>Clear</button>
