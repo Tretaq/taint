@@ -14,13 +14,22 @@ export function editorReducer(state: EditorState, action: EditorAction):EditorSt
                     let updatedRecentColors = state.recentColors
                     if(state.recentColors && state.recentColors[0] != state.color){
                         const filteredColors = state.recentColors.filter(c => c !== state.color);
-                        const updatedRecentColors = [state.color, ...filteredColors].slice(0, 8);
+                        updatedRecentColors = [state.color, ...filteredColors].slice(0, 8);
                     }
                     return {...state,grid: newgrid, recentColors: updatedRecentColors};
                 }
-                case "eraser":
+                case "eraser": {
+                    const newgrid = setPixel(state.grid,action.x,action.y,null);
+                    return {...state,grid: newgrid}
+                }
                 case "fill":
-                case "eyedropper":
+                case "eyedropper": {
+                    const cellColor =getPixel(state.grid,action.x,action.y);
+                    if( cellColor === null){
+                        return state;
+                    }
+                    return {...state,color: cellColor}
+                }
                 default: {
                     const _exhaustive: never = state.tool;
                     return state;
