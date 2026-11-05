@@ -5,6 +5,7 @@ export interface EditorState {
     grid: Grid;
     color: string;
     recentColors: string[];
+    tool: Tool;
 }
 export interface PaintAction {
     type: "paint"
@@ -19,5 +20,11 @@ export interface SetColorAction{
     type: "setColor"
     color: string;
 }
+export interface SetToolAction{
+    type: "setTool"
+    SelectedTool: Tool;
+}
 
-export type EditorAction = PaintAction | ClearAction | SetColorAction;
+export type EditorAction = PaintAction | ClearAction | SetColorAction | SetToolAction;
+
+export type Tool = "pencil" | "eraser" | "fill" | "eyedropper"

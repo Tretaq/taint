@@ -21,6 +21,9 @@ export function editorReducer(state: EditorState, action: EditorAction):EditorSt
             const updatedRecentColors = [action.color, ...filteredColors].slice(0, 8);
             return {...state,color: action.color,recentColors: updatedRecentColors};
         }
+        case "setTool": {
+            return {...state, tool: action.SelectedTool}
+        }
         default: {
             const _exhaustive: never = action;
             return state;

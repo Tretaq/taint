@@ -20,7 +20,8 @@ export const EditorProvider = ({children}: EditorProviderProps) => {
     const [state, dispatch] = useReducer(editorReducer, undefined, ():EditorState => ({
         grid: createGrid(16,16),
         color: PALETTE[0],
-        recentColors: PALETTE.slice(0 ,4)
+        recentColors: PALETTE.slice(0 ,4),
+        tool: "pencil"
     }));
     return (
         <EditorContext.Provider value={{state,dispatch}}>
