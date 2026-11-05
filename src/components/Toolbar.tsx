@@ -21,6 +21,7 @@ const TOOlS: ToolConfig[] = [
 export const Toolbar: React.FC<ToolbarProps> = ({ activeTool, onSelect }) => {
     return (
         <div className="toolbar" role="toolbar" aria-labelledby={"Drawing tools"}>
+            <div>Your Tool: {activeTool}</div>
             { TOOlS.map((tool) => {
                 const isActive = activeTool === tool.id;
                 return (
