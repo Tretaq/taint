@@ -1,5 +1,5 @@
 import type {EditorAction, EditorState} from "../types.ts";
-import {createGrid, floodFill, getPixel, setPixel} from "../grid.ts";
+import {addRecentColor, createGrid, floodFill, getPixel, setPixel} from "../grid.ts";
 
 
 export function editorReducer(state: EditorState, action: EditorAction):EditorState {
@@ -11,12 +11,7 @@ export function editorReducer(state: EditorState, action: EditorAction):EditorSt
                         return state;
                     }
                     const newgrid = setPixel(state.grid,action.x,action.y,state.color);
-                    let updatedRecentColors = state.recentColors
-                    if(state.recentColors && state.recentColors[0] != state.color){
-                        const filteredColors = state.recentColors.filter(c => c !== state.color);
-                        updatedRecentColors = [state.color, ...filteredColors].slice(0, 8);
-                    }
-                    return {...state,grid: newgrid, recentColors: updatedRecentColors};
+                    return {...state,grid: newgrid, recentColors: addRecentColor(state.recentColors,state.color)};
                 }
                 case "eraser": {
                     const newgrid = setPixel(state.grid,action.x,action.y,null);
@@ -26,12 +21,7 @@ export function editorReducer(state: EditorState, action: EditorAction):EditorSt
                     if(!action.isStart){
                         return state;
                     }
-                    let updatedRecentColors = state.recentColors
-                    if(state.recentColors && state.recentColors[0] != state.color){
-                        const filteredColors = state.recentColors.filter(c => c !== state.color);
-                        updatedRecentColors = [state.color, ...filteredColors].slice(0, 8);
-                    }
-                    return {...state, grid: floodFill(state.grid,action.x,action.y,state.color),recentColors: updatedRecentColors};
+                    return {...state, grid: floodFill(state.grid,action.x,action.y,state.color),recentColors: addRecentColor(state.recentColors,state.color)};
                     
                 }
                 case "eyedropper": {

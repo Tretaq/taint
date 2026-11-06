@@ -52,7 +52,7 @@ export const PixelCanvas: React.FC<PixelCanvasProps> = ({grid,cellSize,onCellAct
         if(!isDrawing.current) return;
 
         const cell = eventToCell(e);
-        if(cell) onCellAction(cell.x, cell.y,true);
+        if(cell) onCellAction(cell.x, cell.y,false);
     }
     const handlePointerUp = (e: React.PointerEvent<HTMLCanvasElement>) => {
         isDrawing.current = false;

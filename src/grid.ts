@@ -24,12 +24,15 @@ export function setPixel(grid: Grid, x: number, y: number, color: Pixel) {
     }
     const newGrid = grid.map(row => [...row]);
     newGrid[y][x] = color;
-    if(newGrid === grid){
-        return grid;
-    }
     return newGrid;
 }
-
+export const addRecentColor = (recentColors: string[], color:string) => {
+    if(recentColors[0] === color){
+        return recentColors;
+    }
+    const filteredColors = recentColors.filter(c => c !== color)
+    return [color, ...filteredColors.slice(0, 8)];
+}
 export function floodFill(grid: Grid, x: number, y: number, newcolor: Pixel):Grid {
     const height = grid.length;
     const width = height > 0 ? grid[0].length : 0;
