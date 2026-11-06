@@ -5,38 +5,39 @@ import {addRecentColor, createGrid, floodFill, getPixel, setPixel} from "../grid
 export function editorReducer(state: EditorState, action: EditorAction):EditorState {
     switch(action.type){
         case "applyTool": {
-            switch (state.tool){
+            const base = action.isStart ? {...state, past: [...state.past, state.grid].slice(-100), future: []} : state;
+            switch (base.tool){
                 case "pencil":{
-                    if(getPixel(state.grid,action.x,action.y) === state.color){
-                        return state;
+                    if(getPixel(base.grid,action.x,action.y) === base.color){
+                        return base;
                     }
-                    const newgrid = setPixel(state.grid,action.x,action.y,state.color);
-                    return {...state,grid: newgrid, recentColors: addRecentColor(state.recentColors,state.color)};
+                    const newgrid = setPixel(base.grid,action.x,action.y,base.color);
+                    return {...base,grid: newgrid, recentColors: addRecentColor(base.recentColors,base.color)};
                 }
                 case "eraser": {
-                    const newgrid = setPixel(state.grid,action.x,action.y,null);
-                    return {...state,grid: newgrid}
+                    const newgrid = setPixel(base.grid,action.x,action.y,null);
+                    return {...base,grid: newgrid}
                 }
                 case "fill": {
                     if(!action.isStart){
-                        return state;
+                        return base;
                     }
-                    return {...state, grid: floodFill(state.grid,action.x,action.y,state.color),recentColors: addRecentColor(state.recentColors,state.color)};
+                    return {...base, grid: floodFill(base.grid,action.x,action.y,base.color),recentColors: addRecentColor(base.recentColors,base.color)};
                     
                 }
                 case "eyedropper": {
                     if(!action.isStart){
-                        return state;
+                        return base;
                     }
-                    const cellColor =getPixel(state.grid,action.x,action.y);
+                    const cellColor =getPixel(base.grid,action.x,action.y);
                     if( cellColor === null){
-                        return state;
+                        return base;
                     }
-                    return {...state,color: cellColor,tool: "pencil"}
+                    return {...base,color: cellColor,tool: "pencil"}
                 }
                 default: {
-                    const _exhaustive: never = state.tool;
-                    return state;
+                    const _exhaustive: never = base.tool;
+                    return base;
 
                 }
             }
@@ -53,6 +54,22 @@ export function editorReducer(state: EditorState, action: EditorAction):EditorSt
         }
         case "setTool": {
             return {...state, tool: action.tool}
+        }
+        case "endStroke": {
+            if(state.grid === state.past[state.past.length-1]  ){
+                return {...state, past:state.past.slice(0,-1)};
+            }
+            return state;
+        }
+        case "undo": {
+         if(state.past.length === 0){
+             return state;
+         }
+         const newGrid = state.past[length - 1];
+
+        }
+        case "redo": {
+
         }
         default: {
             const _exhaustive: never = action;

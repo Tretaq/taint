@@ -6,8 +6,10 @@ export interface EditorState {
     color: string;
     recentColors: string[];
     tool: Tool;
+    past: Grid[];
+    future: Grid[];
 }
-export interface applyToolAction {
+export interface ApplyToolAction {
     type: "applyTool",
     x:number,
     y:number,
@@ -25,7 +27,15 @@ export interface SetToolAction{
     type: "setTool"
     tool: Tool;
 }
-
-export type EditorAction = applyToolAction | ClearAction | SetColorAction | SetToolAction;
+export interface UndoAction {
+    type: "undo"
+}
+export interface RedoAction {
+    type: "redo"
+}
+export interface EndStrokeAction {
+    type: "endStroke"
+}
+export type EditorAction = ApplyToolAction | ClearAction | SetColorAction | SetToolAction | UndoAction | RedoAction | EndStrokeAction;
 
 export type Tool = "pencil" | "eraser" | "fill" | "eyedropper"

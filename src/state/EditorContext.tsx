@@ -10,7 +10,6 @@ export type EditorContextType = {
 } | null;
 
 export const EditorContext = createContext<EditorContextType>(null);
-// how it looks we define it at the start
 interface EditorProviderProps {
     children: ReactNode;
 }
@@ -21,7 +20,9 @@ export const EditorProvider = ({children}: EditorProviderProps) => {
         grid: createGrid(16,16),
         color: PALETTE[0],
         recentColors: PALETTE.slice(0 ,4),
-        tool: "pencil"
+        tool: "pencil",
+        past: [],
+        future: []
     }));
     return (
         <EditorContext.Provider value={{state,dispatch}}>
