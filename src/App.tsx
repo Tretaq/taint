@@ -14,10 +14,12 @@ function App() {
   }
   return (
     <>
-      <PixelCanvas grid={state.grid} cellSize={20}  onCellAction={handleCellAction}></PixelCanvas>
+      <PixelCanvas grid={state.grid} cellSize={20}  onCellAction={handleCellAction} onStrokeEnd={() => dispatch({type: "endStroke"})}></PixelCanvas>
         <button onClick={() => {
             dispatch({type:"clear"})
         }}>Clear</button>
+        <button disabled={state.past.length === 0} onClick={() => dispatch({type: "undo"})}>Undo</button>
+        <button disabled={state.future.length === 0} onClick={() => dispatch({type: "redo"})}>Redo</button>
         <Palette recentColors={state.recentColors} selected={state.color} onSelected={(color) => dispatch({type: "setColor", color})} colors={PALETTE}></Palette>
         <Toolbar activeTool={state.tool} onSelect={(tool) => dispatch({type: 'setTool', tool})}/>
     </>

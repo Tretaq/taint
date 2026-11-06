@@ -1,11 +1,17 @@
 import type {EditorAction, EditorState} from "../types.ts";
 import {addRecentColor, createGrid, floodFill, getPixel, setPixel} from "../grid.ts";
 
-
+function withSnap(state: EditorState):EditorState {
+    return {
+        ...state,
+        past: [...state.past, state.grid].slice(-100),
+        future: [],
+    };
+}
 export function editorReducer(state: EditorState, action: EditorAction):EditorState {
     switch(action.type){
         case "applyTool": {
-            const base = action.isStart ? {...state, past: [...state.past, state.grid].slice(-100), future: []} : state;
+            const base = action.isStart ? withSnap(state) : state;
             switch (base.tool){
                 case "pencil":{
                     if(getPixel(base.grid,action.x,action.y) === base.color){
@@ -44,8 +50,10 @@ export function editorReducer(state: EditorState, action: EditorAction):EditorSt
 
         }
         case "clear": {
-            const clearGrid = createGrid(state.grid[0].length,state.grid.length)
-            return {...state,grid:clearGrid};
+            return {
+                ...withSnap(state),
+                grid: createGrid(state.grid[0].length, state.grid.length)
+            }
         }
         case "setColor": {
             if(state.color === action.color) return state;
@@ -65,11 +73,22 @@ export function editorReducer(state: EditorState, action: EditorAction):EditorSt
          if(state.past.length === 0){
              return state;
          }
-         const newGrid = state.past[length - 1];
+         return {
+             ...state,grid: state.past[state.past.length-1],past:state.past.slice(0,-1),future: [state.grid, ...state.future],
+         }
 
         }
         case "redo": {
-
+            if(state.future.length === 0){{
+                return state;
+            }}
+            const [next, ...rest] = state.future
+            return {
+                ...state,
+                grid: next,
+                past: [...state.past, state.grid],
+                future: rest,
+            }
         }
         default: {
             const _exhaustive: never = action;

@@ -5,9 +5,10 @@ interface PixelCanvasProps {
     grid: Grid
     cellSize: number
     onCellAction: (x: number, y: number, isStart:boolean) => void
+    onStrokeEnd: () => void;
 
 }
-export const PixelCanvas: React.FC<PixelCanvasProps> = ({grid,cellSize,onCellAction}) => {
+export const PixelCanvas: React.FC<PixelCanvasProps> = ({grid,cellSize,onCellAction,onStrokeEnd}) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const rows = grid.length;
     const cols = rows > 0 ? grid[0].length : 0;
@@ -52,11 +53,13 @@ export const PixelCanvas: React.FC<PixelCanvasProps> = ({grid,cellSize,onCellAct
         if(!isDrawing.current) return;
 
         const cell = eventToCell(e);
-        if(cell) onCellAction(cell.x, cell.y,false);
+        if(cell) onCellAction(cell.x, cell.y,true);
     }
     const handlePointerUp = (e: React.PointerEvent<HTMLCanvasElement>) => {
+        if(!isDrawing.current) return;
         isDrawing.current = false;
         canvasRef.current?.releasePointerCapture(e.pointerId);
+        onStrokeEnd();
     }
 
 
