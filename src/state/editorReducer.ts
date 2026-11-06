@@ -44,7 +44,6 @@ export function editorReducer(state: EditorState, action: EditorAction):EditorSt
                 default: {
                     const _exhaustive: never = base.tool;
                     return base;
-
                 }
             }
 
@@ -76,7 +75,6 @@ export function editorReducer(state: EditorState, action: EditorAction):EditorSt
          return {
              ...state,grid: state.past[state.past.length-1],past:state.past.slice(0,-1),future: [state.grid, ...state.future],
          }
-
         }
         case "redo": {
             if(state.future.length === 0){{
