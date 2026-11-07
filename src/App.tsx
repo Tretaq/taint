@@ -7,11 +7,12 @@ import {Toolbar} from "./components/Toolbar.tsx";
 import {SizeSelect} from "./components/SizeSelect.tsx";
 import {useState} from "react";
 
+const SIZES = [16,32,64]
+const MIN_ZOOM = 4;
+const MAX_ZOOM = 40;
+
 function App() {
     const {state,dispatch} = useEditor();
-    const SIZES = [16,32,64]
-   const MIN_ZOOM = 4;
-    const MAX_ZOOM = 40;
     const [cellSize, setCellSize] = useState(20);
     const [showGrid, setShowGrid] = useState(true);
   const handleCellAction = (x: number, y: number, isStart: boolean) => {
@@ -38,5 +39,4 @@ function App() {
     </>
   )
 }
-
 export default App

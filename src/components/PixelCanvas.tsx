@@ -32,12 +32,12 @@ export const PixelCanvas: React.FC<PixelCanvasProps> = ({grid,cellSize,onCellAct
             ctx.strokeStyle = "rgba(0, 0,0,0.2)"
             ctx.lineWidth = 1;
             ctx.beginPath();
-            for(let x = 0; x < cols; x++) {
+            for(let x = 0; x <= cols; x++) {
                 const px = Math.min(x * cellSize, width - 1) + 0.5;
                 ctx.moveTo(px, 0);
                 ctx.lineTo(px,height);
             }
-            for(let y = 0; y < rows; y++) {
+            for(let y = 0; y <= rows; y++) {
                 const py = Math.min(y * cellSize, height - 1) + 0.5;
                 ctx.moveTo(0, py);
                 ctx.lineTo(width, py);

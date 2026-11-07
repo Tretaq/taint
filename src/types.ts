@@ -8,7 +8,14 @@ export interface EditorState {
     tool: Tool;
     past: Grid[];
     future: Grid[];
+    stroke: {
+        startX: number;
+        startY: number;
+        lastX: number;
+        lastY: number;
+    } | null;
 }
+export type Point = [number, number];
 export interface ApplyToolAction {
     type: "applyTool",
     x:number,
@@ -43,4 +50,4 @@ export interface ResizeAction {
 }
 export type EditorAction = ApplyToolAction | ClearAction | SetColorAction | SetToolAction | ResizeAction | UndoAction | RedoAction | EndStrokeAction;
 
-export type Tool = "pencil" | "eraser" | "fill" | "eyedropper"
+export type Tool = "pencil" | "eraser" | "fill" | "eyedropper" | "line" | "rect"
