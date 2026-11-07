@@ -23,3 +23,8 @@
     border-color: white;
     outline: 2px solid black;
 }
+.canvas-wrapper {
+    overflow: auto;
+    max-width: 100%;
+    max-height: 80vh;
+}
