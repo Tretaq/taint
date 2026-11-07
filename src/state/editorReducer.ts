@@ -5,7 +5,6 @@ function withSnap(state: EditorState):EditorState {
     return {
         ...state,
         past: [...state.past, state.grid].slice(-100),
-        future: [],
     };
 }
 export function editorReducer(state: EditorState, action: EditorAction):EditorState {
@@ -39,7 +38,7 @@ export function editorReducer(state: EditorState, action: EditorAction):EditorSt
                     if( cellColor === null){
                         return base;
                     }
-                    return {...base,color: cellColor,tool: "pencil"}
+                    return {...base,color: cellColor}
                 }
                 default: {
                     const _exhaustive: never = base.tool;
@@ -51,7 +50,8 @@ export function editorReducer(state: EditorState, action: EditorAction):EditorSt
         case "clear": {
             return {
                 ...withSnap(state),
-                grid: createGrid(state.grid[0].length, state.grid.length)
+                grid: createGrid(state.grid[0].length, state.grid.length),
+                future: []
             }
         }
         case "setColor": {
@@ -66,7 +66,7 @@ export function editorReducer(state: EditorState, action: EditorAction):EditorSt
             if(state.grid === state.past[state.past.length-1]  ){
                 return {...state, past:state.past.slice(0,-1)};
             }
-            return state;
+            return {...state,future:[]}
         }
         case "undo": {
          if(state.past.length === 0){
@@ -75,6 +75,17 @@ export function editorReducer(state: EditorState, action: EditorAction):EditorSt
          return {
              ...state,grid: state.past[state.past.length-1],past:state.past.slice(0,-1),future: [state.grid, ...state.future],
          }
+        }
+        case "resize": {
+            const currentHeight = state.grid.length;
+            const currentWidth = state.grid[0].length;
+            if(action.width === currentWidth && action.height === currentHeight){
+                return state;
+            }
+            return {
+                ...withSnap(state),
+                grid: createGrid(action.width,action.height),
+            }
         }
         case "redo": {
             if(state.future.length === 0){{

@@ -36,6 +36,11 @@ export interface RedoAction {
 export interface EndStrokeAction {
     type: "endStroke"
 }
-export type EditorAction = ApplyToolAction | ClearAction | SetColorAction | SetToolAction | UndoAction | RedoAction | EndStrokeAction;
+export interface ResizeAction {
+    type: "resize"
+    width:number
+    height:number
+}
+export type EditorAction = ApplyToolAction | ClearAction | SetColorAction | SetToolAction | ResizeAction | UndoAction | RedoAction | EndStrokeAction;
 
 export type Tool = "pencil" | "eraser" | "fill" | "eyedropper"

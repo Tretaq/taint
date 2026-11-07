@@ -37,8 +37,8 @@ export const Toolbar: React.FC<ToolbarProps> = ({ activeTool, onSelect }) => {
                     </button>
                 )
             })
-
             }
+
 
         </div>
     )
