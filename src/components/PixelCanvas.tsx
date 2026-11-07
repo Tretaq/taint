@@ -6,9 +6,9 @@ interface PixelCanvasProps {
     cellSize: number
     onCellAction: (x: number, y: number, isStart:boolean) => void
     onStrokeEnd: () => void;
-
+    showGrid: boolean;
 }
-export const PixelCanvas: React.FC<PixelCanvasProps> = ({grid,cellSize,onCellAction,onStrokeEnd}) => {
+export const PixelCanvas: React.FC<PixelCanvasProps> = ({grid,cellSize,onCellAction,onStrokeEnd,showGrid}) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const rows = grid.length;
     const cols = rows > 0 ? grid[0].length : 0;
@@ -28,8 +28,24 @@ export const PixelCanvas: React.FC<PixelCanvasProps> = ({grid,cellSize,onCellAct
 
             }
         }
+        if(showGrid && cellSize >= 8) {
+            ctx.strokeStyle = "rgba(0, 0,0,0.2)"
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            for(let x = 0; x < cols; x++) {
+                const px = Math.min(x * cellSize, width - 1) + 0.5;
+                ctx.moveTo(px, 0);
+                ctx.lineTo(px,height);
+            }
+            for(let y = 0; y < rows; y++) {
+                const py = Math.min(y * cellSize, height - 1) + 0.5;
+                ctx.moveTo(0, py);
+                ctx.lineTo(width, py);
+            }
+            ctx.stroke()
+        }
 
-    },[grid,cellSize,width,height,rows,cols]);
+    },[grid,cellSize,width,height,rows,cols,showGrid]);
     const eventToCell = (e: React.PointerEvent<HTMLCanvasElement>) => {
         const canvas = canvasRef.current;
         if(!canvas) return;
