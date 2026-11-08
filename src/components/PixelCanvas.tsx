@@ -25,7 +25,6 @@ export const PixelCanvas: React.FC<PixelCanvasProps> = ({grid,cellSize,onCellAct
             for(let x = 0; x < cols; x++) {
                 ctx.fillStyle = grid[y][x] ?? '#E5E7EB';
                 ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
-
             }
         }
         if(showGrid && cellSize >= 8) {
