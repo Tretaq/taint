@@ -22,7 +22,9 @@ export const EditorProvider = ({children}: EditorProviderProps) => {
         recentColors: PALETTE.slice(0 ,4),
         tool: "pencil",
         past: [],
-        future: []
+        future: [],
+        stroke: null,
+
     }));
     return (
         <EditorContext.Provider value={{state,dispatch}}>

@@ -65,6 +65,7 @@ export function editorReducer(state: EditorState, action: EditorAction):EditorSt
                 }
                 default: {
                     const _exhaustive: never = base.tool;
+                    void _exhaustive;
                     return base;
                 }
             }
@@ -132,6 +133,7 @@ export function editorReducer(state: EditorState, action: EditorAction):EditorSt
         }
         default: {
             const _exhaustive: never = action;
+            void _exhaustive;
             return state;
         }
     }

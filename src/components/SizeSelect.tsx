@@ -1,4 +1,3 @@
-import type {Grid} from "../types.ts";
 
 interface SizeSelectProps {
     value: number;
