@@ -22,6 +22,10 @@ export interface ApplyToolAction {
     y:number,
     isStart: boolean
 }
+export interface LoadGridAction {
+    type: "loadGrid",
+    grid: Grid,
+}
 export interface ClearAction {
     type: "clear"
 }
@@ -48,6 +52,6 @@ export interface ResizeAction {
     width:number
     height:number
 }
-export type EditorAction = ApplyToolAction | ClearAction | SetColorAction | SetToolAction | ResizeAction | UndoAction | RedoAction | EndStrokeAction;
+export type EditorAction = ApplyToolAction | ClearAction | SetColorAction | SetToolAction | ResizeAction | UndoAction | RedoAction | EndStrokeAction | LoadGridAction;
 
 export type Tool = "pencil" | "eraser" | "fill" | "eyedropper" | "line" | "rect"

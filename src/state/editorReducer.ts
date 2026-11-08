@@ -9,7 +9,6 @@ import {
     painCells,
     setPixel
 } from "../grid.ts";
-import {act} from "react";
 
 function withSnap(state: EditorState):EditorState {
     return {
@@ -76,6 +75,14 @@ export function editorReducer(state: EditorState, action: EditorAction):EditorSt
                 ...withSnap(state),
                 grid: createGrid(state.grid[0].length, state.grid.length),
                 future: []
+            }
+        }
+        case  "loadGrid": {
+            return {
+                ...withSnap(state),
+                grid: action.grid,
+                future: [],
+                stroke: null
             }
         }
         case "setColor": {
