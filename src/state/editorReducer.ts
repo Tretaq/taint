@@ -1,5 +1,15 @@
 import type {EditorAction, EditorState} from "../types.ts";
-import {addRecentColor, createGrid, floodFill, getPixel, setPixel} from "../grid.ts";
+import {
+    addRecentColor,
+    createGrid,
+    floodFill,
+    getLinePoints,
+    getPixel,
+    getRectPoints,
+    painCells,
+    setPixel
+} from "../grid.ts";
+import {act} from "react";
 
 function withSnap(state: EditorState):EditorState {
     return {
@@ -10,7 +20,10 @@ function withSnap(state: EditorState):EditorState {
 export function editorReducer(state: EditorState, action: EditorAction):EditorState {
     switch(action.type){
         case "applyTool": {
-            const base = action.isStart ? withSnap(state) : state;
+            const { x , y ,isStart} = action;
+            const base: EditorState = isStart ? {...withSnap(state), stroke: {startX: x, startY: y, lastX: x,lastY: y}} : state;
+
+
             switch (base.tool){
                 case "pencil":{
                     if(getPixel(base.grid,action.x,action.y) === base.color){
@@ -29,6 +42,18 @@ export function editorReducer(state: EditorState, action: EditorAction):EditorSt
                     }
                     return {...base, grid: floodFill(base.grid,action.x,action.y,base.color),recentColors: addRecentColor(base.recentColors,base.color)};
                     
+                }
+                case "line":
+                case "rect": {
+                    const s = base.stroke;
+                    if(!s) return base;
+                    const origin = base.past[base.past.length-1];
+                    const points = base.tool === "line" ? getLinePoints(s.startX,s.startY,action.x, action.y) : getRectPoints(s.startX, s.startY,action.x, action.y);
+                    return {
+                        ...base,
+                        grid: painCells(origin, points, base.color),
+                        recentColors: addRecentColor(base.recentColors,base.color),
+                    }
                 }
                 case "eyedropper": {
                     if(!action.isStart){

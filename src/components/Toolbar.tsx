@@ -15,8 +15,8 @@ const TOOlS: ToolConfig[] = [
     {id: 'eraser',label: 'Eraser'},
     {id: 'fill',label: 'Fill'},
     {id: 'eyedropper',label: 'Eyedropper'},
-
-
+    {id: "rect", label:'Rect'},
+    {id: "line", label:'Line'}
 ]
 export const Toolbar: React.FC<ToolbarProps> = ({ activeTool, onSelect }) => {
     return (
