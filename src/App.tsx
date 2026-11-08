@@ -21,8 +21,12 @@ function App() {
   }
   return (
     <>
+        <div className="app">
+            <div className="canvas-wrap">
       <PixelCanvas showGrid={showGrid} grid={state.grid} cellSize={cellSize}  onCellAction={handleCellAction} onStrokeEnd={() => dispatch({type: "endStroke"})}></PixelCanvas>
-        <button onClick={() => {
+            </div>
+            <aside className="panel">
+            <button onClick={() => {
             dispatch({type:"clear"})
         }}>Clear</button>
         <button disabled={state.past.length === 0} onClick={() => dispatch({type: "undo"})}>Undo</button>
@@ -38,7 +42,9 @@ function App() {
         <Palette recentColors={state.recentColors} selected={state.color} onSelected={(color) => dispatch({type: "setColor", color})} colors={PALETTE}></Palette>
         <Toolbar activeTool={state.tool} onSelect={(tool) => dispatch({type: 'setTool', tool})}/>
         <FileActions grid={state.grid} onload={(grid) => dispatch({type: "loadGrid",grid})}/>
-    </>
+            </aside>
+            </div>
+        </>
   )
 }
 export default App
