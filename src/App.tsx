@@ -6,6 +6,7 @@ import {PALETTE} from "./palette.ts";
 import {Toolbar} from "./components/Toolbar.tsx";
 import {SizeSelect} from "./components/SizeSelect.tsx";
 import {useState} from "react";
+import {FileActions} from "./components/FileActions.tsx";
 
 const SIZES = [16,32,64]
 const MIN_ZOOM = 4;
@@ -36,6 +37,7 @@ function App() {
         </label>
         <Palette recentColors={state.recentColors} selected={state.color} onSelected={(color) => dispatch({type: "setColor", color})} colors={PALETTE}></Palette>
         <Toolbar activeTool={state.tool} onSelect={(tool) => dispatch({type: 'setTool', tool})}/>
+        <FileActions grid={state.grid} onload={(grid) => dispatch({type: "loadGrid",grid})}/>
     </>
   )
 }
