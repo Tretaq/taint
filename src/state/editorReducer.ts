@@ -23,7 +23,6 @@ export function editorReducer(state: EditorState, action: EditorAction):EditorSt
             const { x , y ,isStart} = action;
             const base: EditorState = isStart ? {...withSnap(state), stroke: {startX: x, startY: y, lastX: x,lastY: y}} : state;
 
-
             switch (base.tool){
                 case "pencil":{
                     if(getPixel(base.grid,action.x,action.y) === base.color){

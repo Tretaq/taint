@@ -83,7 +83,7 @@ export function painCells(grid: Grid, points:Point[], color: Pixel):Grid {
         const current = next ? next[y][x] : grid[y][x];
         if(current === color)continue;
         if(!next) next = grid.map(row => [...row]);
-        next[y][x] = current;
+        next[y][x] = color;
     }
     return next ?? grid;
 }
