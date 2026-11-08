@@ -58,6 +58,35 @@ export function getLinePoints(x0: number, y0: number , x1: number , y1: number):
     }
     return points;
 }
+export function getRectPoints(x0:number,y0:number,x1:number,y1:number):Point[] {
+    const left = Math.min(x0,x1);
+    const right = Math.max(x0,x1);
+    const top = Math.min(y0,y1);
+    const bottom = Math.max(y0,y1);
+    const points:Point[] = [];
+    for(let x = left; x <= right; x++){
+        points.push([x,top])
+        if(bottom !== top) points.push([x,bottom]);
+    }
+    for(let y = top + 1 ; y < bottom; y++){
+        points.push([left, y])
+        if(right != left) points.push([right, y]);
+    }
+    return points;
+}
+export function painCells(grid: Grid, points:Point[], color: Pixel):Grid {
+    let next: Grid | null = null;
+    for(const [x,y] of points){
+        if(!inBounds(grid, x, y)){
+            continue;
+        }
+        const current = next ? next[y][x] : grid[y][x];
+        if(current === color)continue;
+        if(!next) next = grid.map(row => [...row]);
+        next[y][x] = current;
+    }
+    return next ?? grid;
+}
 export function floodFill(grid: Grid, x: number, y: number, newcolor: Pixel):Grid {
     const height = grid.length;
     const width = height > 0 ? grid[0].length : 0;
